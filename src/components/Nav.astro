@@ -1,0 +1,146 @@
+---
+interface Props {
+	activePage?: 'forside' | 'program' | 'trifolium';
+	logoSrc?: string;
+	ticketHref?: string;
+}
+
+const {
+	activePage = 'forside',
+	logoSrc =
+		'https://images.squarespace-cdn.com/content/v1/68305df4506cf643363757d3/126f5ad9-7dd6-4da1-93de-458c1e32d3b0/LOGO%2Bpng%2Bred.png?format=500w',
+	ticketHref = '/billetter',
+} = Astro.props;
+
+const links = [
+	{ label: 'FORSIDE', href: '/', id: 'forside' },
+	{ label: 'PROGRAM', href: '/program', id: 'program' },
+	{ label: 'TRIFOLIUM', href: '/trifolium', id: 'trifolium' },
+] as const;
+---
+
+<header class="site-header">
+	<a class="site-logo" href="/" aria-label="Impact Festival forside">
+		<img src={logoSrc} alt="Impact Festival" width="500" height="238" />
+	</a>
+
+	<nav class="site-nav" aria-label="Primær navigation">
+		{links.map((link) => (
+			<a
+				class:list={['site-nav__link', { 'site-nav__link--active': activePage === link.id }]}
+				href={link.href}
+				aria-current={activePage === link.id ? 'page' : undefined}
+			>
+				{link.label}
+			</a>
+		))}
+	</nav>
+
+	<a class="ticket-link" href={ticketHref}>BILLETTER</a>
+</header>
+
+<style>
+	.site-header {
+		position: absolute;
+		z-index: 10;
+		top: 0;
+		left: 0;
+		display: grid;
+		grid-template-columns: minmax(150px, 1fr) auto minmax(150px, 1fr);
+		align-items: center;
+		width: 100%;
+		box-sizing: border-box;
+		padding: clamp(1.25rem, 3.2vw, 3.75rem) clamp(1.25rem, 4.8vw, 5.75rem);
+		font-family: Arial, Helvetica, sans-serif;
+		letter-spacing: 0;
+	}
+
+	.site-logo {
+		display: block;
+		justify-self: start;
+		width: clamp(9.5rem, 12vw, 14rem);
+	}
+
+	.site-logo img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	.site-nav {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: clamp(1.5rem, 4vw, 4.75rem);
+	}
+
+	.site-nav__link,
+	.ticket-link {
+		color: #ffffff;
+		font-size: clamp(0.8rem, 1vw, 1.15rem);
+		font-weight: 600;
+		line-height: 1;
+		text-decoration: none;
+	}
+
+	.site-nav__link {
+		padding-block: 0.4rem;
+		border-bottom: 2px solid transparent;
+	}
+
+	.site-nav__link:hover,
+	.site-nav__link--active {
+		border-bottom-color: currentColor;
+	}
+
+	.ticket-link {
+		justify-self: end;
+		min-width: clamp(8.5rem, 12vw, 14rem);
+		box-sizing: border-box;
+		padding: 1.05rem 1.5rem;
+		border-radius: 999px;
+		background: #e34a3b;
+		text-align: center;
+		transition: background-color 160ms ease;
+	}
+
+	.ticket-link:hover {
+		background: #c9362c;
+	}
+
+	.site-logo:focus-visible,
+	.site-nav__link:focus-visible,
+	.ticket-link:focus-visible {
+		outline: 3px solid #ffffff;
+		outline-offset: 4px;
+	}
+
+	@media (max-width: 760px) {
+		.site-header {
+			grid-template-columns: 1fr auto;
+			gap: 1rem;
+			padding: 1rem;
+		}
+
+		.site-logo {
+			width: 8.75rem;
+		}
+
+		.ticket-link {
+			min-width: 0;
+			padding: 0.8rem 1rem;
+		}
+
+		.site-nav {
+			grid-column: 1 / -1;
+			grid-row: 2;
+			justify-self: center;
+			gap: clamp(1rem, 6vw, 2.5rem);
+		}
+
+		.site-nav__link,
+		.ticket-link {
+			font-size: 0.75rem;
+		}
+	}
+</style>
