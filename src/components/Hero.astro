@@ -18,6 +18,9 @@ const {
 	programHref = '/program',
 	ticketHref = '/billetter',
 } = Astro.props;
+
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+const withBase = (path: string) => path.startsWith('/') ? `${basePath}${path}` : path;
 ---
 
 <section class="hero" aria-labelledby="hero-title">
@@ -45,8 +48,8 @@ const {
 		{description && <p class="hero__description">{description}</p>}
 
 		<div class="hero__actions">
-			<a class="button button--light" href={programHref}>SE PROGRAM</a>
-			<a class="button button--accent" href={ticketHref}>KØB BILLET</a>
+			<a class="button button--light" href={withBase(programHref)}>SE PROGRAM</a>
+			<a class="button button--accent" href={withBase(ticketHref)}>KØB BILLET</a>
 		</div>
 	</div>
 </section>

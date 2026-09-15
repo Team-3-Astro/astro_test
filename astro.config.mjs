@@ -1,8 +1,9 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 
-// https://astro.build/config
+const isGitHubPages = process.env.GITHUB_ACTIONS === "true";
+
 export default defineConfig({
-  site: "https://team-3-astro.github.io",
-  base: "/astro_test",
+  site: isGitHubPages ? "https://team-3-astro.github.io" : undefined,
+  base: isGitHubPages ? "/astro_test" : "/",
 });

@@ -12,10 +12,13 @@ const {
 	ticketHref = '/billetter',
 } = Astro.props;
 
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+const withBase = (path: string) => path.startsWith('/') ? `${basePath}${path}` : path;
+
 const links = [
-	{ label: 'FORSIDE', href: '/', id: 'forside' },
-	{ label: 'PROGRAM', href: '/program', id: 'program' },
-	{ label: 'TRIFOLIUM', href: '/trifolium', id: 'trifolium' },
+	{ label: 'FORSIDE', href: withBase('/'), id: 'forside' },
+	{ label: 'PROGRAM', href: withBase('/program'), id: 'program' },
+	{ label: 'TRIFOLIUM', href: withBase('/trifolium'), id: 'trifolium' },
 ] as const;
 ---
 
@@ -36,7 +39,7 @@ const links = [
 		))}
 	</nav>
 
-	<a class="ticket-link" href={ticketHref}>BILLETTER</a>
+	<a class="ticket-link" href={withBase(ticketHref)}>BILLETTER</a>
 </header>
 
 <style>
