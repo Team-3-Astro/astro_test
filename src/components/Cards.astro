@@ -1,151 +1,144 @@
 ---
 interface Props {
-	variant?: 'theme' | 'highlight' | 'social';
-	eyebrow?: string;
-	title?: string;
-	description?: string;
-	image: string;
-	alt: string;
+  variant?: "theme" | "highlight" | "social";
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+  image: string;
+  alt: string;
 }
 
-const {
-	variant = 'theme',
-	eyebrow,
-	title,
-	description,
-	image,
-	alt,
-} = Astro.props;
+const { variant = "theme", eyebrow, title, description, image, alt } = Astro.props;
 
-const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
-const imageSrc = image.startsWith('/') ? `${basePath}${image}` : image;
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+const imageSrc = image.startsWith("/") ? `${basePath}${image}` : image;
 ---
 
-<article class:list={['content-card', `content-card--${variant}`]}>
-	<img class="content-card__image" src={imageSrc} alt={alt} loading="lazy" />
-	<div class="content-card__copy">
-		{eyebrow && <p class="content-card__eyebrow">{eyebrow}</p>}
-		{title && <h3>{title}</h3>}
-		{description && <p class="content-card__description">{description}</p>}
-	</div>
+<article class:list={["content-card", `content-card--${variant}`]}>
+  <img class="content-card__image" src={imageSrc} alt={alt} loading="lazy" />
+  <div class="content-card__copy">
+    {eyebrow && <p class="content-card__eyebrow">{eyebrow}</p>}
+    {title && <h3>{title}</h3>}
+    {description && <p class="content-card__description">{description}</p>}
+  </div>
 </article>
 
 <style>
-	.content-card {
-		position: relative;
-		min-width: 0;
-		margin: 0;
-		font-family: Inter, Arial, Helvetica, sans-serif;
-		letter-spacing: 0;
-	}
+  .content-card {
+    position: relative;
+    min-width: 0;
+    margin: 0;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    letter-spacing: 0;
+  }
 
-	.content-card__image {
-		display: block;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
+  .content-card__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
-	.content-card__copy {
-		box-sizing: border-box;
-	}
+  .content-card__copy {
+    box-sizing: border-box;
+  }
 
-	.content-card__eyebrow,
-	.content-card h3,
-	.content-card__description {
-		margin: 0;
-	}
+  .content-card__eyebrow,
+  .content-card h3,
+  .content-card__description {
+    margin: 0;
+  }
 
-	.content-card__eyebrow,
-	.content-card h3 {
-		font-weight: 700;
-		text-transform: uppercase;
-	}
+  .content-card__eyebrow,
+  .content-card h3 {
+    font-weight: 700;
+    text-transform: uppercase;
+  }
 
-	.content-card__description {
-		line-height: 1.35;
-	}
+  .content-card__description {
+    line-height: 1.35;
+  }
 
-	.content-card--theme {
-		display: grid;
-		aspect-ratio: 1.04 / 1;
-		overflow: hidden;
-		border: 4px solid #e71b20;
-		background: #e8decf;
-		color: #20221f;
-	}
+  .content-card--theme {
+    display: grid;
+    aspect-ratio: 1.04 / 1;
+    overflow: hidden;
+    border: 4px solid #e71b20;
+    background: #e8decf;
+    color: #20221f;
+  }
 
-	.content-card--theme .content-card__image,
-	.content-card--theme .content-card__copy {
-		grid-area: 1 / 1;
-	}
+  .content-card--theme .content-card__image,
+  .content-card--theme .content-card__copy {
+    grid-area: 1 / 1;
+  }
 
-	.content-card--theme .content-card__image {
-		opacity: 0.66;
-	}
+  .content-card--theme .content-card__image {
+    opacity: 0.66;
+  }
 
-	.content-card--theme .content-card__copy {
-		z-index: 1;
-		align-self: start;
-		padding: 1.35rem;
-	}
+  .content-card--theme .content-card__copy {
+    z-index: 1;
+    align-self: start;
+    padding: 1.35rem;
+  }
 
-	.content-card--theme .content-card__eyebrow {
-		margin-bottom: 0.65rem;
-		color: #e71b20;
-		font-size: 2rem;
-		line-height: 0.95;
-	}
+  .content-card--theme .content-card__eyebrow {
+    margin-bottom: 0.65rem;
+    color: #e71b20;
+    font-size: 2rem;
+    line-height: 0.95;
+  }
 
-	.content-card--theme .content-card__description {
-		max-width: 20rem;
-		font-size: 1.25rem;
-		font-weight: 600;
-	}
+  .content-card--theme .content-card__description {
+    max-width: 20rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
 
-	.content-card--highlight {
-		display: flex;
-		flex-direction: column;
-		color: #20221f;
-	}
+  .content-card--highlight {
+    display: flex;
+    flex-direction: column;
+    color: #20221f;
+  }
 
-	.content-card--highlight .content-card__image {
-		aspect-ratio: 1.18 / 1;
-		border: 6px solid #03658c;
-		border-radius: 1.35rem;
-	}
+  .content-card--highlight .content-card__image {
+    aspect-ratio: 1.18 / 1;
+    border: 6px solid #03658c;
+    border-radius: 1.35rem;
+  }
 
-	.content-card--highlight .content-card__copy {
-		padding: 1.5rem 0 0;
-	}
+  .content-card--highlight .content-card__copy {
+    padding: 1.5rem 0 0;
+  }
 
-	.content-card--highlight h3 {
-		font-size: 1.4rem;
-		line-height: 1.2;
-	}
+  .content-card--highlight h3 {
+    font-size: 1.4rem;
+    line-height: 1.2;
+  }
 
-	.content-card--highlight .content-card__description {
-		margin-top: 0.7rem;
-		color: #85887f;
-		font-size: 1.15rem;
-	}
+  .content-card--highlight .content-card__description {
+    margin-top: 0.7rem;
+    color: #85887f;
+    font-size: 1.15rem;
+  }
 
-	.content-card--social {
-		display: grid;
-		grid-template-rows: minmax(16rem, 1fr) auto;
-		gap: 1.25rem;
-		color: #ffffff;
-	}
+  .content-card--social {
+    display: grid;
+    grid-template-rows: minmax(16rem, 1fr) auto;
+    gap: 1.25rem;
+    color: #ffffff;
+  }
 
-	.content-card--social .content-card__image {
-		aspect-ratio: 0.84 / 1;
-		border: 6px solid #52c0d9;
-		border-radius: 1rem;
-	}
+  .content-card--social .content-card__image {
+    aspect-ratio: 0.84 / 1;
+    border: 6px solid #52c0d9;
+    border-radius: 1rem;
+  }
 
-	.content-card--social h3 {
-		font-size: 1.35rem;
-		line-height: 1.2;
-		text-align: center;
-	}
+  .content-card--social h3 {
+    font-size: 1.35rem;
+    line-height: 1.2;
+    text-align: center;
+  }
 </style>

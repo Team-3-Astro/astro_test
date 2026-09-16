@@ -1,152 +1,141 @@
 ---
 interface Props {
-	activePage?: 'forside' | 'program' | 'trifolium';
-	logoSrc?: string;
-	ticketHref?: string;
+  activePage?: "forside" | "program" | "trifolium";
+  logoSrc?: string;
+  ticketHref?: string;
 }
 
-const {
-	activePage = 'forside',
-	logoSrc = '/images/impact-logo-complete-red.png',
-	ticketHref = '/billetter',
-} = Astro.props;
+const { activePage = "forside", logoSrc = "/images/impact-logo-complete-red.png", ticketHref = "/billetter" } = Astro.props;
 
-const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
-const withBase = (path: string) => path.startsWith('/') ? `${basePath}${path}` : path;
-const resolvedLogo = logoSrc.startsWith('/') ? withBase(logoSrc) : logoSrc;
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+const withBase = (path: string) => (path.startsWith("/") ? `${basePath}${path}` : path);
+const resolvedLogo = logoSrc.startsWith("/") ? withBase(logoSrc) : logoSrc;
 
 const links = [
-	{ label: 'FORSIDE', href: withBase('/'), id: 'forside' },
-	{ label: 'PROGRAM', href: withBase('/program'), id: 'program' },
-	{ label: 'TRIFOLIUM', href: withBase('/trifolium'), id: 'trifolium' },
+  { label: "FORSIDE", href: withBase("/"), id: "forside" },
+  { label: "PROGRAM", href: withBase("/program"), id: "program" },
+  { label: "TRIFOLIUM", href: withBase("/trifolium"), id: "trifolium" },
 ] as const;
 ---
 
-<header class:list={['site-header', { 'site-header--home': activePage === 'forside' }]}>
-	<a class="site-logo" href={withBase('/')} aria-label="Impact Festival forside">
-		<img src={resolvedLogo} alt="Impact Festival" width="2114" height="660" />
-	</a>
+<header class:list={["site-header", { "site-header--home": activePage === "forside" }]}>
+  <a class="site-logo" href={withBase("/")} aria-label="Impact Festival forside">
+    <img src={resolvedLogo} alt="Impact Festival" width="2114" height="660" />
+  </a>
 
-	<nav class="site-nav" id="primary-navigation" aria-label="Primær navigation">
-		{links.map((link) => (
-			<a
-				class:list={['site-nav__link', { 'site-nav__link--active': activePage === link.id }]}
-				href={link.href}
-				aria-current={activePage === link.id ? 'page' : undefined}
-			>
-				{link.label}
-			</a>
-		))}
-	</nav>
+  <nav class="site-nav" id="primary-navigation" aria-label="Primær navigation">
+    {
+      links.map((link) => (
+        <a class:list={["site-nav__link", { "site-nav__link--active": activePage === link.id }]} href={link.href} aria-current={activePage === link.id ? "page" : undefined}>
+          {link.label}
+        </a>
+      ))
+    }
+  </nav>
 
-	<a class="ticket-link" href={withBase(ticketHref)}>BILLETTER</a>
+  <a class="ticket-link" href={withBase(ticketHref)}>BILLETTER</a>
 
-	<button
-		class="menu-button"
-		type="button"
-		aria-label="Åbn menu"
-		aria-controls="primary-navigation"
-		aria-expanded="false"
-	>
-		<span></span>
-		<span></span>
-	</button>
+  <button class="menu-button" type="button" aria-label="Åbn menu" aria-controls="primary-navigation" aria-expanded="false">
+    <span></span>
+    <span></span>
+  </button>
 </header>
 
 <script>
-	const headers = document.querySelectorAll<HTMLElement>('.site-header');
-	headers.forEach((header) => {
-		const button = header.querySelector<HTMLButtonElement>('.menu-button');
-		button?.addEventListener('click', () => {
-			const isOpen = header.classList.toggle('site-header--open');
-			button.setAttribute('aria-expanded', String(isOpen));
-			button.setAttribute('aria-label', isOpen ? 'Luk menu' : 'Åbn menu');
-		});
-	});
+  const headers = document.querySelectorAll<HTMLElement>(".site-header");
+  headers.forEach((header) => {
+    const button = header.querySelector<HTMLButtonElement>(".menu-button");
+    button?.addEventListener("click", () => {
+      const isOpen = header.classList.toggle("site-header--open");
+      button.setAttribute("aria-expanded", String(isOpen));
+      button.setAttribute("aria-label", isOpen ? "Luk menu" : "Åbn menu");
+    });
+  });
 </script>
 
 <style>
-	.site-header {
-		position: absolute;
-		z-index: 20;
-		top: 1.75rem;
-		left: 50%;
-		display: grid;
-		grid-template-columns: 12rem 1fr auto;
-		align-items: center;
-		width: min(87.5rem, calc(100% - 7rem));
-		height: 5.125rem;
-		box-sizing: border-box;
-		padding: 0 1rem;
-		transform: translateX(-50%);
-		background: rgba(32, 34, 31, 0.05);
-		backdrop-filter: blur(11px);
-		font-family: Inter, Arial, Helvetica, sans-serif;
-		letter-spacing: 0;
-	}
+  .site-header {
+    position: fixed;
+    z-index: 20;
+    top: 1.75rem;
+    left: 50%;
+    display: grid;
+    grid-template-columns: 12rem 1fr auto;
+    align-items: center;
+    width: min(87.5rem, calc(100% - 7rem));
+    height: 5.125rem;
+    box-sizing: border-box;
+    padding: 0 1rem;
+    border-radius: 1.5rem;
+    transform: translateX(-50%);
+    background: rgba(32, 34, 31, 0.05);
+    backdrop-filter: blur(11px);
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    letter-spacing: 0;
+  }
 
-	.site-logo {
-		display: block;
-		width: 11rem;
-	}
+  .site-logo {
+    display: block;
+    width: 11rem;
+  }
 
-	.site-logo img {
-		display: block;
-		width: 100%;
-		height: auto;
-	}
+  .site-logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
 
-	.site-nav {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: clamp(2rem, 5vw, 5rem);
-	}
+  .site-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(2rem, 5vw, 5rem);
+  }
 
-	.site-nav__link,
-	.ticket-link {
-		color: #ffffff;
-		font-size: 1rem;
-		font-weight: 500;
-		line-height: 1;
-		text-decoration: none;
-	}
+  .site-nav__link,
+  .ticket-link {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
+  }
 
-	.site-nav__link {
-		padding-block: 0.5rem;
-		border-bottom: 1px solid transparent;
-	}
+  .site-nav__link {
+    padding-block: 0.5rem;
+    border-bottom: 1px solid transparent;
+  }
 
-	.site-nav__link:hover,
-	.site-nav__link--active {
-		border-bottom-color: currentColor;
-	}
+  .site-nav__link:hover,
+  .site-nav__link--active {
+    border-bottom-color: currentColor;
+  }
 
-	.ticket-link {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		min-width: 10.875rem;
-		min-height: 3.5rem;
-		padding-inline: 1.5rem;
-		border-radius: 1.75rem;
-		background: rgba(240, 68, 46, 0.8);
-		font-weight: 600;
-	}
+  .ticket-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 10.875rem;
+    min-height: 3.5rem;
+    padding-inline: 1.5rem;
+    border-radius: 1.75rem;
+    background: rgba(240, 68, 46, 0.8);
+    font-weight: 600;
+  }
 
-	.ticket-link:hover {
-		background: #f0442e;
-	}
+  .ticket-link:hover {
+    background: #f0442e;
+  }
 
-	.menu-button {
-		display: none;
-	}
+  .menu-button {
+    display: none;
+  }
 
-	.site-logo:focus-visible,
-	.site-nav__link:focus-visible,
-	.ticket-link:focus-visible,
-	.menu-button:focus-visible {
-		outline: 3px solid #ffffff;
-		outline-offset: 4px;
-	}
+  .site-logo:focus-visible,
+  .site-nav__link:focus-visible,
+  .ticket-link:focus-visible,
+  .menu-button:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 4px;
+  }
 </style>

@@ -1,155 +1,143 @@
 ---
-import Nav from './Nav.astro';
+import Nav from "./Nav.astro";
 
 interface Props {
-	description?: string;
-	heroImage?: string;
-	programHref?: string;
-	ticketHref?: string;
+  description?: string;
+  heroVideo?: string;
+  programHref?: string;
+  ticketHref?: string;
 }
 
-const {
-	description = 'To dage med kultur, fællesskab og konkrete handlinger, der øger vores impact.',
-	heroImage = '/images/impact-hero.png',
-	programHref = '/program',
-	ticketHref = '/billetter',
-} = Astro.props;
+const { description = "To dage med kultur, fællesskab og konkrete handlinger, der øger vores impact.", heroVideo = "/video/hero_video.mp4", programHref = "/program", ticketHref = "/billetter" } = Astro.props;
 
-const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
-const withBase = (path: string) => path.startsWith('/') ? `${basePath}${path}` : path;
-const resolvedHeroImage = heroImage.startsWith('/') ? withBase(heroImage) : heroImage;
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+const withBase = (path: string) => (path.startsWith("/") ? `${basePath}${path}` : path);
+const resolvedHeroVideo = heroVideo.startsWith("/") ? withBase(heroVideo) : heroVideo;
 ---
 
 <section class="hero" aria-labelledby="hero-title">
-	<img
-		class="hero__image"
-		src={resolvedHeroImage}
-		sizes="100vw"
-		width="810"
-		height="1080"
-		alt="Deltager arbejder med spraymaling ved en kreativ workshop"
-		loading="eager"
-		fetchpriority="high"
-	/>
-	<div class="hero__overlay" aria-hidden="true"></div>
+  <video class="hero__image" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+    <source src={resolvedHeroVideo} type="video/mp4" />
+  </video>
+  <div class="hero__overlay" aria-hidden="true"></div>
 
-	<Nav activePage="forside" ticketHref={ticketHref} />
+  <Nav activePage="forside" ticketHref={ticketHref} />
 
-	<div class="hero__content">
-		<h1 id="hero-title" class="hero__title">IMPACT<br />FESTIVAL</h1>
-		<p class="hero__description">{description}</p>
-		<div class="hero__actions">
-			<a class="button button--light" href={withBase(ticketHref)}>KØB BILLET</a>
-			<a class="button button--accent" href={withBase(programHref)}>SE PROGRAM</a>
-		</div>
-	</div>
+  <div class="hero__content">
+    <h1 id="hero-title" class="hero__title">IMPACT<br />FESTIVAL</h1>
+    <p class="hero__description">{description}</p>
+    <div class="hero__actions">
+      <a class="button button--light" href={withBase(ticketHref)}>KØB BILLET</a>
+      <a class="button button--accent" href={withBase(programHref)}>SE PROGRAM</a>
+    </div>
+  </div>
 </section>
 
 <style>
-	.hero {
-		position: relative;
-		display: flex;
-		height: min(1003px, 100svh);
-		min-height: 45rem;
-		overflow: hidden;
-		isolation: isolate;
-		background: #20221f;
-		font-family: Inter, Arial, Helvetica, sans-serif;
-		letter-spacing: 0;
-	}
+  .hero {
+    position: relative;
+    display: flex;
+    height: min(1003px, 100svh);
+    min-height: 45rem;
+    overflow: hidden;
+    isolation: isolate;
+    background: #20221f;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    letter-spacing: 0;
+  }
 
-	.hero__image,
-	.hero__overlay {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-	}
+  .hero__image,
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
 
-	.hero__image {
-		z-index: -2;
-		object-fit: cover;
-		object-position: center 52%;
-	}
+  .hero__image {
+    z-index: -2;
+    object-fit: cover;
+    object-position: center 52%;
+  }
 
-	.hero__overlay {
-		z-index: -1;
-		background: rgba(63, 58, 58, 0.61);
-	}
+  .hero__overlay {
+    z-index: -1;
+    background: rgba(63, 58, 58, 0.61);
+  }
 
-	.hero__content {
-		display: flex;
-		flex-direction: column;
-		align-self: flex-end;
-		width: min(87.5rem, calc(100% - 7rem));
-		margin-inline: auto;
-		padding-bottom: 6.35rem;
-		color: #ffffff;
-	}
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+    width: min(87.5rem, calc(100% - 7rem));
+    margin-inline: auto;
+    padding-bottom: 6.35rem;
+    color: #ffffff;
+  }
 
-	.hero__title {
-		color: #e71b20;
-		margin: 0 0 2.75rem clamp(0rem, 7vw, 6rem);
-		font-size: clamp(4.5rem, 9vw, 8.75rem);
-		font-weight: 800;
-		line-height: 0.78;
-		letter-spacing: 0;
-		text-transform: uppercase;
-	}
+  .hero__title {
+    color: #e71b20;
+    margin: 0 0 2.75rem clamp(0rem, 7vw, 6rem);
+    font-size: clamp(4.5rem, 9vw, 8.75rem);
+    font-weight: 800;
+    line-height: 0.78;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
 
-	.hero__description {
-		max-width: 39rem;
-		margin: 0 0 4rem;
-		font-size: 1.5rem;
-		line-height: 1.42;
-		text-wrap: balance;
-		text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
-	}
+  .hero__description {
+    max-width: 39rem;
+    margin: 0 0 4rem;
+    font-size: 1.5rem;
+    line-height: 1.42;
+    text-wrap: balance;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+  }
 
-	.hero__actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 3.35rem;
-	}
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3.35rem;
+  }
 
-	.button {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		min-width: 16rem;
-		min-height: 4.5rem;
-		box-sizing: border-box;
-		padding: 0.5rem 2rem;
-		border-radius: 1.8rem;
-		font-size: 1.15rem;
-		font-weight: 600;
-		line-height: 1;
-		text-decoration: none;
-		transition: background-color 160ms ease;
-	}
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 16rem;
+    min-height: 4.5rem;
+    box-sizing: border-box;
+    padding: 0.5rem 2rem;
+    border-radius: 1.8rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    transition: background-color 160ms ease;
+  }
 
-	.button--light {
-		background: rgba(255, 255, 255, 0.52);
-		color: #e71b20;
-		backdrop-filter: blur(8px);
-	}
+  .button--light {
+    background: rgba(255, 255, 255, 0.52);
+    color: #e71b20;
+    backdrop-filter: blur(8px);
+  }
 
-	.button--light:hover {
-		background: rgba(255, 255, 255, 0.78);
-	}
+  .button--light:hover {
+    background: rgba(255, 255, 255, 0.78);
+  }
 
-	.button--accent {
-		background: rgba(240, 68, 46, 0.8);
-		color: #ffffff;
-		backdrop-filter: blur(8px);
-	}
+  .button--accent {
+    background: rgba(240, 68, 46, 0.8);
+    color: #ffffff;
+    backdrop-filter: blur(8px);
+  }
 
-	.button--accent:hover {
-		background: #f0442e;
-	}
+  .button--accent:hover {
+    background: #f0442e;
+  }
 
-	.button:focus-visible {
-		outline: 3px solid #ffffff;
-		outline-offset: 4px;
-	}
+  .button:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 4px;
+  }
 </style>
