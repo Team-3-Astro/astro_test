@@ -77,12 +77,14 @@ const resolvedHeroVideo = heroVideo.startsWith("/") ? withBase(heroVideo) : hero
   }
 
   .hero__title {
+    align-self: flex-start;
     color: #e71b20;
-    margin: 0 0 2.75rem clamp(0rem, 7vw, 6rem);
+    margin: 0 0 2.75rem;
     font-size: clamp(4.5rem, 9vw, 8.75rem);
     font-weight: 800;
     line-height: 0.78;
     letter-spacing: 0;
+    text-align: left;
     text-transform: uppercase;
   }
 
