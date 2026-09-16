@@ -1,0 +1,157 @@
+---
+interface Props {
+  variant?: "default" | "program";
+}
+
+const { variant = "default" } = Astro.props;
+const isProgram = variant === "program";
+
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+const withBase = (path: string) => (path.startsWith("/") ? `${basePath}${path}` : path);
+
+const emailId = isProgram ? "program-email" : "newsletter-email";
+const legalText = isProgram ? "© 2026 FORENING IMPACT, BÅDEHAVNSGADE 42, 2450 KØBENHAVN SV" : "© 2026 FORENING IMPACT";
+---
+
+<footer class:list={["festival-footer", { "program-footer": isProgram, "site-footer": !isProgram }]}>
+  <div
+    class:list={[
+      "footer-shell",
+      "festival-footer__grid",
+      {
+        "program-shell": isProgram,
+        "program-footer__grid": isProgram,
+        "section-shell": !isProgram,
+        "site-footer__grid": !isProgram,
+      },
+    ]}
+  >
+    <div class:list={["festival-footer__identity", { "program-footer__identity": isProgram, "site-footer__identity": !isProgram }]}>
+      <img src={withBase("/images/impact-logo-red.png")} alt="Impact Festival" width="300" height="90" />
+      <address>
+        11.-12.09.2026<br />
+        Trifolium, Bådehavnsgade 42<br />
+        2450 København SV
+      </address>
+    </div>
+
+    <nav aria-label="Navigation i sidefod">
+      <a href={withBase("/program")}>PROGRAM</a>
+      <a href={withBase("/billetter")}>BILLETTER</a>
+      <a href="https://www.instagram.com/impactfestival_cph/">INSTAGRAM</a>
+      <a href="mailto:info@impactfestival.dk">KONTAKT</a>
+    </nav>
+
+    <form class:list={["footer-newsletter", { "program-newsletter": isProgram, newsletter: !isProgram }]}>
+      <label for={emailId}>FÅ NYHEDER FRA IMPACT</label>
+      <input id={emailId} name="email" type="email" placeholder="DIN EMAIL" />
+      <button type="submit">TILMELD</button>
+    </form>
+
+    <p class:list={["festival-footer__legal", { "program-footer__legal": isProgram, "site-footer__legal": !isProgram }]}>
+      {legalText}
+    </p>
+  </div>
+</footer>
+
+<style>
+  .festival-footer {
+    padding: 4.6rem 0 3rem;
+    background: #e8decf;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    letter-spacing: 0;
+  }
+
+  .site-footer {
+    color: #f0442e;
+  }
+
+  .program-footer {
+    padding-top: 4.5rem;
+    color: #20221f;
+  }
+
+  .footer-shell {
+    width: min(80rem, calc(100% - 4rem));
+    margin-inline: auto;
+  }
+
+  .festival-footer__grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 0.65fr 1.1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .festival-footer__identity img {
+    display: block;
+    width: 10rem;
+    height: auto;
+    margin-bottom: 6.8rem;
+  }
+
+  .festival-footer address {
+    font-size: 1rem;
+    font-style: normal;
+    line-height: 1.5;
+  }
+
+  .festival-footer nav {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .festival-footer nav a,
+  .footer-newsletter label {
+    color: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .footer-newsletter {
+    display: grid;
+    justify-items: start;
+    gap: 1rem;
+  }
+
+  .footer-newsletter input {
+    width: min(100%, 24.5rem);
+    min-height: 3.5rem;
+    box-sizing: border-box;
+    padding: 0 1rem;
+    border: 1px solid currentColor;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+  }
+
+  .program-newsletter input {
+    border-color: #85887f;
+  }
+
+  .footer-newsletter input::placeholder {
+    color: currentColor;
+    opacity: 0.78;
+  }
+
+  .footer-newsletter button {
+    min-width: 8.25rem;
+    min-height: 3.125rem;
+    border: 0;
+    border-radius: 1.6rem;
+    background: rgba(240, 68, 46, 0.8);
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .festival-footer__legal {
+    grid-column: 1 / -1;
+    margin: 2rem 0 0;
+    color: #85887f;
+    font-size: 0.75rem;
+  }
+</style>

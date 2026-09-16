@@ -1,9 +1,6 @@
 ---
 import Cards from "./Cards.astro";
 
-const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
-const withBase = (path: string) => (path.startsWith("/") ? `${basePath}${path}` : path);
-
 const themes = [
   {
     eyebrow: "OPDAG",
@@ -104,37 +101,8 @@ const socialPosts = [
   </section>
 </main>
 
-<footer class="site-footer">
-  <div class="section-shell site-footer__grid">
-    <div class="site-footer__identity">
-      <img src={withBase("/images/impact-logo-red.png")} alt="Impact Festival" width="300" height="90" />
-      <address>
-        11.-12.09.2026<br />
-        Trifolium, Bådehavnsgade 42<br />
-        2450 København SV
-      </address>
-    </div>
-
-    <nav aria-label="Navigation i sidefod">
-      <a href={withBase("/program")}>PROGRAM</a>
-      <a href={withBase("/billetter")}>BILLETTER</a>
-      <a href="https://www.instagram.com/impactfestival_cph/">INSTAGRAM</a>
-      <a href="mailto:info@impactfestival.dk">KONTAKT</a>
-    </nav>
-
-    <form class="newsletter">
-      <label for="newsletter-email">FÅ NYHEDER FRA IMPACT</label>
-      <input id="newsletter-email" name="email" type="email" placeholder="DIN EMAIL" />
-      <button type="submit">TILMELD</button>
-    </form>
-
-    <p class="site-footer__legal">© 2026 FORENING IMPACT</p>
-  </div>
-</footer>
-
 <style>
-  .impact-page,
-  .site-footer {
+  .impact-page {
     font-family: Inter, Arial, Helvetica, sans-serif;
     letter-spacing: 0;
   }
@@ -264,86 +232,5 @@ const socialPosts = [
   .social__grid {
     gap: clamp(3rem, 8vw, 9rem);
     margin-top: 3.5rem;
-  }
-
-  .site-footer {
-    padding: 4.6rem 0 3rem;
-    background: #e8decf;
-    color: #f0442e;
-  }
-
-  .site-footer__grid {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 0.65fr 1.1fr;
-    gap: 4rem;
-    align-items: start;
-  }
-
-  .site-footer__identity img {
-    display: block;
-    width: 10rem;
-    height: auto;
-    margin-bottom: 6.8rem;
-  }
-
-  .site-footer address {
-    font-size: 1rem;
-    font-style: normal;
-    line-height: 1.5;
-  }
-
-  .site-footer nav {
-    display: grid;
-    gap: 0.8rem;
-  }
-
-  .site-footer nav a,
-  .newsletter label {
-    color: inherit;
-    font-size: 0.95rem;
-    font-weight: 500;
-    text-decoration: none;
-  }
-
-  .newsletter {
-    display: grid;
-    justify-items: start;
-    gap: 1rem;
-  }
-
-  .newsletter input {
-    width: min(100%, 24.5rem);
-    min-height: 3.5rem;
-    box-sizing: border-box;
-    padding: 0 1rem;
-    border: 1px solid currentColor;
-    background: transparent;
-    color: inherit;
-    font: inherit;
-  }
-
-  .newsletter input::placeholder {
-    color: currentColor;
-    opacity: 0.78;
-  }
-
-  .newsletter button {
-    min-width: 8.25rem;
-    min-height: 3.125rem;
-    border: 0;
-    border-radius: 1.6rem;
-    background: rgba(240, 68, 46, 0.8);
-    color: #ffffff;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-  }
-
-  .site-footer__legal {
-    grid-column: 1 / -1;
-    margin: 2rem 0 0;
-    color: #85887f;
-    font-size: 0.75rem;
   }
 </style>

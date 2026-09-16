@@ -1,571 +1,461 @@
 ---
-import Nav from './Nav.astro';
+import Nav from "./Nav.astro";
 
-const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
-const withBase = (path: string) => path.startsWith('/') ? `${basePath}${path}` : path;
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+const withBase = (path: string) => (path.startsWith("/") ? `${basePath}${path}` : path);
 
 const friday = [
-	{ time: '15:00–18:00', title: 'MAKE YOUR OWN LEBUBU', detail: 'Drop in, inkluderet i festivalbilletten', image: '/images/event-sabubu.png' },
-	{ time: '18:00', title: 'IMPACT DINNER', detail: 'Langbordsmiddag, begrænset antal pladser', image: '/images/event-dinner.png' },
-	{ time: '19:00', title: 'ALBA AKVAMA', detail: 'Alternativ pop, live', image: '/images/event-alba.png' },
-	{ time: '21:00', title: 'A GOOD YEAR', detail: 'Film, lyd og atmosfære som totaloplevelse', image: '/images/event-good-year.png' },
-	{ time: '23:00', title: 'CLARISSA CONNELLY', detail: 'Fredagens headliner', image: '/images/event-clarissa.png' },
-	{ time: '01:00', title: 'SPLEEN UNITED', detail: 'Mørke synths og høj energi', image: '/images/event-spleen.png' },
+  { time: "15:00–18:00", title: "MAKE YOUR OWN LEBUBU", detail: "Drop in, inkluderet i festivalbilletten", image: "/images/event-sabubu.png" },
+  { time: "18:00", title: "IMPACT DINNER", detail: "Langbordsmiddag, begrænset antal pladser", image: "/images/event-dinner.png" },
+  { time: "19:00", title: "ALBA AKVAMA", detail: "Alternativ pop, live", image: "/images/event-alba.png" },
+  { time: "21:00", title: "A GOOD YEAR", detail: "Film, lyd og atmosfære som totaloplevelse", image: "/images/event-good-year.png" },
+  { time: "23:00", title: "CLARISSA CONNELLY", detail: "Fredagens headliner", image: "/images/event-clarissa.png" },
+  { time: "01:00", title: "SPLEEN UNITED", detail: "Mørke synths og høj energi", image: "/images/event-spleen.png" },
 ];
 
 const saturday = [
-	{ time: '15:00–17:00', title: 'MAKE YOUR OWN UPCYCLED CHAIR', detail: 'Drop in, cirkulært design', image: '/images/event-chair.png' },
-	{ time: '15:00–19:00', title: 'MARKING KNIFE WORKSHOP', detail: 'Tilmelding kræves, begrænsede pladser', image: '/images/event-knife.png' },
-	{ time: '18:00–19:15', title: 'WRITING WORKSHOP', detail: 'Maison Verb, generative skriveøvelser', image: '/images/event-writing.png' },
-	{ time: '19:00', title: 'HALOPLUS+', detail: 'Atmosfærisk trio fra København', image: '/images/event-haloplus.png' },
-	{ time: '20:00', title: 'COMMUNITY DINNER', detail: 'Drop in, langbord og fællesskab', image: '/images/event-dinner.png' },
-	{ time: '21:00', title: 'MIAW', detail: 'Club, shoegaze, triphop og glitch-pop', image: '/images/event-miaw.png' },
+  { time: "15:00–17:00", title: "MAKE YOUR OWN UPCYCLED CHAIR", detail: "Drop in, cirkulært design", image: "/images/event-chair.png" },
+  { time: "15:00–19:00", title: "MARKING KNIFE WORKSHOP", detail: "Tilmelding kræves, begrænsede pladser", image: "/images/event-knife.png" },
+  { time: "18:00–19:15", title: "WRITING WORKSHOP", detail: "Maison Verb, generative skriveøvelser", image: "/images/event-writing.png" },
+  { time: "19:00", title: "HALOPLUS+", detail: "Atmosfærisk trio fra København", image: "/images/event-haloplus.png" },
+  { time: "20:00", title: "COMMUNITY DINNER", detail: "Drop in, langbord og fællesskab", image: "/images/event-dinner.png" },
+  { time: "21:00", title: "MIAW", detail: "Club, shoegaze, triphop og glitch-pop", image: "/images/event-miaw.png" },
 ];
 ---
 
 <main class="program-page">
-	<section class="program-hero" aria-labelledby="program-title">
-		<img
-			class="program-hero__image"
-			src={withBase('/images/program-hero.png')}
-			alt="Samtale på IMPACT Festival med publikum foran scenen"
-			width="1080"
-			height="1350"
-			loading="eager"
-			fetchpriority="high"
-		/>
-		<div class="program-hero__overlay" aria-hidden="true"></div>
-		<Nav activePage="program" />
+  <section class="program-hero" aria-labelledby="program-title">
+    <img class="program-hero__image" src={withBase("/images/program-hero.png")} alt="Samtale på IMPACT Festival med publikum foran scenen" width="1080" height="1350" loading="eager" fetchpriority="high" />
+    <div class="program-hero__overlay" aria-hidden="true"></div>
+    <Nav activePage="program" />
 
-		<div class="program-shell program-hero__content">
-			<p class="program-hero__date">11–12 SEPTEMBER 2026, TRIFOLIUM</p>
-			<h1 id="program-title">PROGRAM</h1>
-			<p class="program-hero__lead">
-				Planlæg din festival på tværs af musik, kunst, talks, workshops og mad.
-				Filtrér efter dag og gem de oplevelser, du vil tilbage til.
-			</p>
-		</div>
-	</section>
+    <div class="program-shell program-hero__content">
+      <p class="program-hero__date">11–12 SEPTEMBER 2026, TRIFOLIUM</p>
+      <h1 id="program-title">PROGRAM</h1>
+      <p class="program-hero__lead">Planlæg din festival på tværs af musik, kunst, talks, workshops og mad. Filtrér efter dag og gem de oplevelser, du vil tilbage til.</p>
+    </div>
+  </section>
 
-	<section class="program-controls" aria-labelledby="days-title">
-		<div class="program-shell program-controls__layout">
-			<div>
-				<p class="program-label">FIND DIN OPLEVELSE</p>
-				<h2 id="days-title">DAGE</h2>
-			</div>
-			<div class="day-tabs" aria-label="Vælg festivaldag">
-				<button class="filter-text filter-text--active" type="button">FREDAG 11.09</button>
-				<button class="filter-text" type="button">LØRDAG 12.09</button>
-			</div>
-			<div class="program-filters" aria-label="Filtrér programmet">
-				<button class="filter-text filter-text--active filter-text--red" type="button">ALLE</button>
-				<button class="filter-text filter-text--red" type="button">MUSIC</button>
-				<button class="filter-text filter-text--red" type="button">WORKSHOPS</button>
-				<button class="filter-text filter-text--red" type="button">FOOD</button>
-				<button class="filter-text filter-text--red" type="button">ART + TALKS</button>
-			</div>
-		</div>
-	</section>
+  <section class="program-controls" aria-labelledby="days-title">
+    <div class="program-shell program-controls__layout">
+      <div>
+        <p class="program-label">FIND DIN OPLEVELSE</p>
+        <h2 id="days-title">DAGE</h2>
+      </div>
+      <div class="day-tabs" aria-label="Vælg festivaldag">
+        <button class="filter-text filter-text--active" type="button">FREDAG 11.09</button>
+        <button class="filter-text" type="button">LØRDAG 12.09</button>
+      </div>
+      <div class="program-filters" aria-label="Filtrér programmet">
+        <button class="filter-text filter-text--active filter-text--red" type="button">ALLE</button>
+        <button class="filter-text filter-text--red" type="button">MUSIC</button>
+        <button class="filter-text filter-text--red" type="button">WORKSHOPS</button>
+        <button class="filter-text filter-text--red" type="button">FOOD</button>
+        <button class="filter-text filter-text--red" type="button">ART + TALKS</button>
+      </div>
+    </div>
+  </section>
 
-	<section class="schedule" aria-label="Program for begge festivaldage">
-		<div class="program-shell schedule__grid">
-			<section class="schedule-day" aria-labelledby="friday-title">
-				<h2 id="friday-title">FREDAG, 11.09</h2>
-				<div class="schedule-day__events">
-					{friday.map((event) => (
-						<article class="event-card">
-							<img src={withBase(event.image)} alt="" width="158" height="198" loading="lazy" />
-							<div>
-								<time>{event.time}</time>
-								<h3>{event.title}</h3>
-								<p>{event.detail}</p>
-							</div>
-						</article>
-					))}
-				</div>
-			</section>
+  <section class="schedule" aria-label="Program for begge festivaldage">
+    <div class="program-shell schedule__grid">
+      <section class="schedule-day" aria-labelledby="friday-title">
+        <h2 id="friday-title">FREDAG, 11.09</h2>
+        <div class="schedule-day__events">
+          {
+            friday.map((event) => (
+              <article class="event-card">
+                <img src={withBase(event.image)} alt="" width="158" height="198" loading="lazy" />
+                <div>
+                  <time>{event.time}</time>
+                  <h3>{event.title}</h3>
+                  <p>{event.detail}</p>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </section>
 
-			<section class="schedule-day" aria-labelledby="saturday-title">
-				<h2 id="saturday-title">LØRDAG, 12.09</h2>
-				<div class="schedule-day__events">
-					{saturday.map((event) => (
-						<article class="event-card">
-							<img src={withBase(event.image)} alt="" width="158" height="198" loading="lazy" />
-							<div>
-								<time>{event.time}</time>
-								<h3>{event.title}</h3>
-								<p>{event.detail}</p>
-							</div>
-						</article>
-					))}
-				</div>
-			</section>
-		</div>
-	</section>
+      <section class="schedule-day" aria-labelledby="saturday-title">
+        <h2 id="saturday-title">LØRDAG, 12.09</h2>
+        <div class="schedule-day__events">
+          {
+            saturday.map((event) => (
+              <article class="event-card">
+                <img src={withBase(event.image)} alt="" width="158" height="198" loading="lazy" />
+                <div>
+                  <time>{event.time}</time>
+                  <h3>{event.title}</h3>
+                  <p>{event.detail}</p>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+    </div>
+  </section>
 
-	<section class="festival-pace" aria-labelledby="pace-title">
-		<div class="program-shell">
-			<p class="program-label">DIT TEMPO, DIN FESTIVAL</p>
-			<div class="festival-pace__image">
-				<img src={withBase('/images/program-hero.png')} alt="Festivalgæster i deres eget tempo" width="1080" height="1350" loading="lazy" />
-				<div class="festival-pace__shade" aria-hidden="true"></div>
-				<h2 id="pace-title">VÆLG DIT TEMPO.<br />BLIV FOR MUSIKKEN.<br />DELTAG I DET, DER RYKKER.</h2>
-			</div>
-		</div>
-	</section>
+  <section class="festival-pace" aria-labelledby="pace-title">
+    <div class="program-shell">
+      <p class="program-label">DIT TEMPO, DIN FESTIVAL</p>
+      <div class="festival-pace__image">
+        <img src={withBase("/images/program-hero.png")} alt="Festivalgæster i deres eget tempo" width="1080" height="1350" loading="lazy" />
+        <div class="festival-pace__shade" aria-hidden="true"></div>
+        <h2 id="pace-title">VÆLG DIT TEMPO.<br />BLIV FOR MUSIKKEN.<br />DELTAG I DET, DER RYKKER.</h2>
+      </div>
+    </div>
+  </section>
 
-	<section class="program-cta" aria-labelledby="cta-title">
-		<div class="program-shell program-cta__grid">
-			<div class="program-cta__copy">
-				<p class="program-label">11–12 SEPTEMBER 2026</p>
-				<h2 id="cta-title">KLAR TIL IMPACT?</h2>
-				<p>
-					Partoutbillet fra 395 kr. Festivalen finder sted på Trifolium,
-					Bådehavnsgade 42, 2450 København SV.
-				</p>
-				<div class="program-cta__actions">
-					<a class="program-button program-button--accent" href={withBase('/billetter')}>KØB BILLET</a>
-					<a class="program-button program-button--outline" href={withBase('/')}>TILBAGE TIL FORSIDEN</a>
-				</div>
-			</div>
-			<img src={withBase('/images/program-cta.png')} alt="Kreativt arbejde på en workshop" width="640" height="760" loading="lazy" />
-		</div>
-	</section>
+  <section class="program-cta" aria-labelledby="cta-title">
+    <div class="program-shell program-cta__grid">
+      <div class="program-cta__copy">
+        <p class="program-label">11–12 SEPTEMBER 2026</p>
+        <h2 id="cta-title">KLAR TIL IMPACT?</h2>
+        <p>Partoutbillet fra 395 kr. Festivalen finder sted på Trifolium, Bådehavnsgade 42, 2450 København SV.</p>
+        <div class="program-cta__actions">
+          <a class="program-button program-button--accent" href={withBase("/billetter")}>KØB BILLET</a>
+          <a class="program-button program-button--outline" href={withBase("/")}>TILBAGE TIL FORSIDEN</a>
+        </div>
+      </div>
+      <img src={withBase("/images/program-cta.png")} alt="Kreativt arbejde på en workshop" width="640" height="760" loading="lazy" />
+    </div>
+  </section>
 </main>
 
-<footer class="program-footer">
-	<div class="program-shell program-footer__grid">
-		<div class="program-footer__identity">
-			<img src={withBase('/images/impact-logo-red.png')} alt="Impact Festival" width="300" height="90" />
-			<address>
-				11.-12.09.2026<br />
-				Trifolium, Bådehavnsgade 42<br />
-				2450 København SV
-			</address>
-		</div>
-		<nav aria-label="Navigation i sidefod">
-			<a href={withBase('/program')}>PROGRAM</a>
-			<a href={withBase('/billetter')}>BILLETTER</a>
-			<a href="https://www.instagram.com/impactfestival_cph/">INSTAGRAM</a>
-			<a href="mailto:info@impactfestival.dk">KONTAKT</a>
-		</nav>
-		<form class="program-newsletter">
-			<label for="program-email">FÅ NYHEDER FRA IMPACT</label>
-			<input id="program-email" name="email" type="email" placeholder="DIN EMAIL" />
-			<button type="submit">TILMELD</button>
-		</form>
-		<p class="program-footer__legal">© 2026 FORENING IMPACT, BÅDEHAVNSGADE 42, 2450 KØBENHAVN SV</p>
-	</div>
-</footer>
-
 <style>
-	.program-page,
-	.program-footer {
-		font-family: Inter, Arial, Helvetica, sans-serif;
-		letter-spacing: 0;
-	}
+  .program-page {
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    letter-spacing: 0;
+  }
 
-	.program-shell {
-		width: min(80rem, calc(100% - 4rem));
-		margin-inline: auto;
-	}
+  .program-shell {
+    width: min(80rem, calc(100% - 4rem));
+    margin-inline: auto;
+  }
 
-	.program-label {
-		margin: 0;
-		color: #85887f;
-		font-size: 0.875rem;
-		font-weight: 500;
-		line-height: 1.2;
-		text-transform: uppercase;
-	}
+  .program-label {
+    margin: 0;
+    color: #85887f;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
 
-	.program-hero {
-		position: relative;
-		z-index: 100;
-		display: flex;
-		height: 51.25rem;
-		overflow: hidden;
-		isolation: isolate;
-		color: #ffffff;
-	}
+  .program-hero {
+    position: relative;
+    z-index: 100;
+    display: flex;
+    height: 51.25rem;
+    overflow: hidden;
+    isolation: isolate;
+    color: #ffffff;
+  }
 
-	.program-hero__image,
-	.program-hero__overlay {
-		position: absolute;
-		z-index: -2;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-	}
+  .program-hero__image,
+  .program-hero__overlay {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
 
-	.program-hero__image {
-		object-fit: cover;
-		object-position: center 43%;
-	}
+  .program-hero__image {
+    object-fit: cover;
+    object-position: center 43%;
+  }
 
-	.program-hero__overlay {
-		z-index: -1;
-		background: rgba(32, 34, 31, 0.5);
-	}
+  .program-hero__overlay {
+    z-index: -1;
+    background: rgba(32, 34, 31, 0.5);
+  }
 
-	.program-hero__content {
-		padding-top: 11.5rem;
-	}
+  .program-hero__content {
+    padding-top: 11.5rem;
+  }
 
-	.program-hero__date {
-		margin: 0;
-		font-size: 1.25rem;
-		font-weight: 500;
-	}
+  .program-hero__date {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
 
-	.program-hero h1,
-	.program-controls h2,
-	.schedule-day h2,
-	.festival-pace h2,
-	.program-cta h2 {
-		margin: 0;
-		letter-spacing: 0;
-	}
+  .program-hero h1,
+  .program-controls h2,
+  .schedule-day h2,
+  .festival-pace h2,
+  .program-cta h2 {
+    margin: 0;
+    letter-spacing: 0;
+  }
 
-	.program-hero h1 {
-		margin-top: 1.6rem;
-		color: #e71b20;
-		font-size: 7.875rem;
-		font-weight: 600;
-		line-height: 0.95;
-	}
+  .program-hero h1 {
+    margin-top: 1.6rem;
+    color: #e71b20;
+    font-size: 7.875rem;
+    font-weight: 600;
+    line-height: 0.95;
+  }
 
-	.program-hero__lead {
-		max-width: 42rem;
-		margin: 3rem 0 0;
-		color: #52c0d9;
-		font-size: 1.875rem;
-		font-weight: 600;
-		line-height: 1.1;
-	}
+  .program-hero__lead {
+    max-width: 42rem;
+    margin: 3rem 0 0;
+    color: #52c0d9;
+    font-size: 1.875rem;
+    font-weight: 600;
+    line-height: 1.1;
+  }
 
-	.program-controls {
-		padding: 4.5rem 0;
-		background: #e8decf;
-		color: #20221f;
-	}
+  .program-controls {
+    padding: 4.5rem 0;
+    background: #e8decf;
+    color: #20221f;
+  }
 
-	.program-controls__layout {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		align-items: start;
-		row-gap: 3.25rem;
-	}
+  .program-controls__layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    row-gap: 3.25rem;
+  }
 
-	.program-controls h2 {
-		margin-top: 0.4rem;
-		color: #f0442e;
-		font-size: 3.5rem;
-		font-weight: 500;
-		line-height: 1;
-	}
+  .program-controls h2 {
+    margin-top: 0.4rem;
+    color: #f0442e;
+    font-size: 3.5rem;
+    font-weight: 500;
+    line-height: 1;
+  }
 
-	.day-tabs,
-	.program-filters {
-		display: flex;
-		align-items: center;
-		gap: 1.75rem;
-	}
+  .day-tabs,
+  .program-filters {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+  }
 
-	.day-tabs {
-		justify-content: flex-end;
-	}
+  .day-tabs {
+    justify-content: flex-end;
+  }
 
-	.program-filters {
-		grid-column: 1 / -1;
-		gap: 1.1rem;
-	}
+  .program-filters {
+    grid-column: 1 / -1;
+    gap: 1.1rem;
+  }
 
-	.filter-text {
-		padding: 0.5rem 0;
-		border: 0;
-		border-bottom: 1px solid transparent;
-		background: transparent;
-		color: #20221f;
-		font: inherit;
-		font-size: 1.1rem;
-		font-weight: 700;
-		cursor: pointer;
-	}
+  .filter-text {
+    padding: 0.5rem 0;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    background: transparent;
+    color: #20221f;
+    font: inherit;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
 
-	.filter-text--active {
-		border-bottom-color: currentColor;
-	}
+  .filter-text--active {
+    border-bottom-color: currentColor;
+  }
 
-	.filter-text--red {
-		color: #e71b20;
-	}
+  .filter-text--red {
+    color: #e71b20;
+  }
 
-	.schedule {
-		padding: 4.5rem 0 7rem;
-		background: #ffffff;
-		color: #20221f;
-	}
+  .schedule {
+    padding: 4.5rem 0 7rem;
+    background: #ffffff;
+    color: #20221f;
+  }
 
-	.schedule__grid {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 3.25rem;
-	}
+  .schedule__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3.25rem;
+  }
 
-	.schedule-day h2 {
-		margin-bottom: 4.7rem;
-		color: #f0442e;
-		font-size: 3.4rem;
-		font-weight: 700;
-		line-height: 1;
-	}
+  .schedule-day h2 {
+    margin-bottom: 4.7rem;
+    color: #f0442e;
+    font-size: 3.4rem;
+    font-weight: 700;
+    line-height: 1;
+  }
 
-	.schedule-day__events {
-		display: grid;
-		gap: 1.75rem;
-	}
+  .schedule-day__events {
+    display: grid;
+    gap: 1.75rem;
+  }
 
-	.event-card {
-		display: grid;
-		grid-template-columns: 9.9rem minmax(0, 1fr);
-		align-items: center;
-		gap: 1.5rem;
-		min-height: 13.1rem;
-		box-sizing: border-box;
-		padding: 0.4rem 1.5rem;
-		border-radius: 0.5rem;
-		background: #eaeae4;
-	}
+  .event-card {
+    display: grid;
+    grid-template-columns: 9.9rem minmax(0, 1fr);
+    align-items: center;
+    gap: 1.5rem;
+    min-height: 13.1rem;
+    box-sizing: border-box;
+    padding: 0.4rem 1.5rem;
+    border-radius: 0.5rem;
+    background: #eaeae4;
+  }
 
-	.event-card img {
-		display: block;
-		width: 9.9rem;
-		height: 12.3rem;
-		border: 5px solid #e71b20;
-		border-radius: 0.65rem;
-		object-fit: cover;
-	}
+  .event-card img {
+    display: block;
+    width: 9.9rem;
+    height: 12.3rem;
+    border: 5px solid #e71b20;
+    border-radius: 0.65rem;
+    object-fit: cover;
+  }
 
-	.event-card time,
-	.event-card h3,
-	.event-card p {
-		display: block;
-		margin: 0;
-	}
+  .event-card time,
+  .event-card h3,
+  .event-card p {
+    display: block;
+    margin: 0;
+  }
 
-	.event-card time {
-		font-size: 1rem;
-		font-weight: 600;
-	}
+  .event-card time {
+    font-size: 1rem;
+    font-weight: 600;
+  }
 
-	.event-card h3 {
-		margin-top: 1rem;
-		color: #e71b20;
-		font-size: 1.3rem;
-		line-height: 1.15;
-	}
+  .event-card h3 {
+    margin-top: 1rem;
+    color: #e71b20;
+    font-size: 1.3rem;
+    line-height: 1.15;
+  }
 
-	.event-card p {
-		margin-top: 1rem;
-		color: #03658c;
-		font-size: 0.95rem;
-		font-weight: 500;
-		line-height: 1.35;
-	}
+  .event-card p {
+    margin-top: 1rem;
+    color: #03658c;
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.35;
+  }
 
-	.festival-pace {
-		padding: 4.25rem 0 5rem;
-		background: #e8decf;
-	}
+  .festival-pace {
+    padding: 4.25rem 0 5rem;
+    background: #e8decf;
+  }
 
-	.festival-pace .program-label {
-		margin-bottom: 2rem;
-	}
+  .festival-pace .program-label {
+    margin-bottom: 2rem;
+  }
 
-	.festival-pace__image {
-		position: relative;
-		height: 31.25rem;
-		overflow: hidden;
-		border-radius: 1rem;
-	}
+  .festival-pace__image {
+    position: relative;
+    height: 31.25rem;
+    overflow: hidden;
+    border-radius: 1rem;
+  }
 
-	.festival-pace__image img,
-	.festival-pace__shade {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-	}
+  .festival-pace__image img,
+  .festival-pace__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
 
-	.festival-pace__image img {
-		object-fit: cover;
-		object-position: center 43%;
-	}
+  .festival-pace__image img {
+    object-fit: cover;
+    object-position: center 43%;
+  }
 
-	.festival-pace__shade {
-		background: rgba(32, 34, 31, 0.28);
-	}
+  .festival-pace__shade {
+    background: rgba(32, 34, 31, 0.28);
+  }
 
-	.festival-pace h2 {
-		position: relative;
-		z-index: 1;
-		max-width: 50rem;
-		padding: 4.5rem 3.5rem;
-		color: #ffffff;
-		font-size: 3.25rem;
-		font-weight: 400;
-		line-height: 1.07;
-	}
+  .festival-pace h2 {
+    position: relative;
+    z-index: 1;
+    max-width: 50rem;
+    padding: 4.5rem 3.5rem;
+    color: #ffffff;
+    font-size: 3.25rem;
+    font-weight: 400;
+    line-height: 1.07;
+  }
 
-	.program-cta {
-		padding: 5rem 0;
-		background: #ffffff;
-		color: #ffffff;
-	}
+  .program-cta {
+    padding: 5rem 0;
+    background: #ffffff;
+    color: #ffffff;
+  }
 
-	.program-cta__grid {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr) 23.9rem;
-		gap: 4rem;
-		align-items: center;
-		box-sizing: border-box;
-		min-height: 35rem;
-		padding: 2.25rem 2.25rem 2.25rem 4rem;
-		background: #03658c;
-	}
+  .program-cta__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 23.9rem;
+    gap: 4rem;
+    align-items: center;
+    box-sizing: border-box;
+    min-height: 35rem;
+    padding: 2.25rem 2.25rem 2.25rem 4rem;
+    background: #03658c;
+  }
 
-	.program-cta .program-label {
-		color: #20221f;
-		font-size: 1.15rem;
-		font-weight: 700;
-	}
+  .program-cta .program-label {
+    color: #20221f;
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
 
-	.program-cta h2 {
-		margin-top: 2rem;
-		color: #52c0d9;
-		font-size: 4.1rem;
-		font-weight: 700;
-		line-height: 1.05;
-	}
+  .program-cta h2 {
+    margin-top: 2rem;
+    color: #52c0d9;
+    font-size: 4.1rem;
+    font-weight: 700;
+    line-height: 1.05;
+  }
 
-	.program-cta__copy > p:not(.program-label) {
-		max-width: 41rem;
-		margin: 2rem 0 0;
-		font-size: 1.25rem;
-		line-height: 1.5;
-	}
+  .program-cta__copy > p:not(.program-label) {
+    max-width: 41rem;
+    margin: 2rem 0 0;
+    font-size: 1.25rem;
+    line-height: 1.5;
+  }
 
-	.program-cta__actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 1rem;
-		margin-top: 4rem;
-	}
+  .program-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 4rem;
+  }
 
-	.program-button {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 3.5rem;
-		box-sizing: border-box;
-		padding: 0.2rem 1.75rem;
-		border-radius: 1.75rem;
-		font-size: 0.95rem;
-		font-weight: 600;
-		text-decoration: none;
-	}
+  .program-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3.5rem;
+    box-sizing: border-box;
+    padding: 0.2rem 1.75rem;
+    border-radius: 1.75rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
 
-	.program-button--accent {
-		background: #52c0d9;
-		color: #ffffff;
-	}
+  .program-button--accent {
+    background: #52c0d9;
+    color: #ffffff;
+  }
 
-	.program-button--outline {
-		border: 4px solid #52c0d9;
-		color: #52c0d9;
-	}
+  .program-button--outline {
+    border: 4px solid #52c0d9;
+    color: #52c0d9;
+  }
 
-	.program-cta__grid > img {
-		display: block;
-		width: 100%;
-		height: 30.5rem;
-		border: 6px solid #52c0d9;
-		border-radius: 1.4rem;
-		object-fit: cover;
-	}
-
-	.program-footer {
-		padding: 4.5rem 0 3rem;
-		background: #e8decf;
-		color: #20221f;
-	}
-
-	.program-footer__grid {
-		display: grid;
-		grid-template-columns: 1fr 0.65fr 1.1fr;
-		gap: 4rem;
-	}
-
-	.program-footer__identity img {
-		display: block;
-		width: 10rem;
-		height: auto;
-		margin-bottom: 6.8rem;
-	}
-
-	.program-footer address {
-		font-size: 1rem;
-		font-style: normal;
-		line-height: 1.5;
-	}
-
-	.program-footer nav {
-		display: grid;
-		gap: 0.8rem;
-	}
-
-	.program-footer nav a,
-	.program-newsletter label {
-		color: inherit;
-		font-size: 0.95rem;
-		font-weight: 500;
-		text-decoration: none;
-	}
-
-	.program-newsletter {
-		display: grid;
-		justify-items: start;
-		gap: 1rem;
-	}
-
-	.program-newsletter input {
-		width: min(100%, 24.5rem);
-		min-height: 3.5rem;
-		box-sizing: border-box;
-		padding: 0 1rem;
-		border: 1px solid #85887f;
-		background: transparent;
-		color: inherit;
-		font: inherit;
-	}
-
-	.program-newsletter button {
-		min-width: 8.25rem;
-		min-height: 3.125rem;
-		border: 0;
-		border-radius: 1.6rem;
-		background: rgba(240, 68, 46, 0.8);
-		color: #ffffff;
-		font-size: 0.95rem;
-		font-weight: 600;
-		cursor: pointer;
-	}
-
-	.program-footer__legal {
-		grid-column: 1 / -1;
-		margin: 2rem 0 0;
-		color: #85887f;
-		font-size: 0.75rem;
-	}
+  .program-cta__grid > img {
+    display: block;
+    width: 100%;
+    height: 30.5rem;
+    border: 6px solid #52c0d9;
+    border-radius: 1.4rem;
+    object-fit: cover;
+  }
 </style>
