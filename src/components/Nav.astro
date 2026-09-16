@@ -18,8 +18,6 @@ const links = [
 ] as const;
 ---
 
-<div class="site-header-backdrop" aria-hidden="true"></div>
-
 <a class="site-logo" href={withBase("/")} aria-label="Impact Festival forside">
   <img src={resolvedLogo} alt="Impact Festival" width="2114" height="660" />
 </a>
@@ -43,6 +41,10 @@ const links = [
   </button>
 </header>
 
+<div class="page-scrollbar" aria-hidden="true">
+  <div class="page-scrollbar__thumb"></div>
+</div>
+
 <script>
   const headers = document.querySelectorAll<HTMLElement>(".site-header");
   headers.forEach((header) => {
@@ -53,41 +55,145 @@ const links = [
       button.setAttribute("aria-label", isOpen ? "Luk menu" : "Åbn menu");
     });
   });
+
+  const scrollbar = document.querySelector<HTMLElement>(".page-scrollbar");
+  const scrollbarThumb = scrollbar?.querySelector<HTMLElement>(".page-scrollbar__thumb");
+
+  if (scrollbar && scrollbarThumb) {
+    document.body.append(scrollbar);
+
+    let thumbHeight = 0;
+    let dragStartY = 0;
+    let dragStartScroll = 0;
+
+    const getScrollState = () => {
+      const root = document.documentElement;
+      const body = document.body;
+      const bodyRange = body.scrollHeight - body.clientHeight;
+      const rootRange = root.scrollHeight - root.clientHeight;
+      const element = bodyRange > rootRange ? body : root;
+      const viewportHeight = element === body ? body.clientHeight : window.innerHeight;
+
+      return {
+        element,
+        viewportHeight,
+        maxScroll: Math.max(0, element.scrollHeight - viewportHeight),
+        scrollTop: element === body ? body.scrollTop : window.scrollY,
+      };
+    };
+
+    const updateScrollbar = () => {
+      const { element, viewportHeight, maxScroll, scrollTop } = getScrollState();
+      const useTouchScrolling = window.matchMedia("(pointer: coarse)").matches;
+
+      scrollbar.hidden = maxScroll <= 0 || useTouchScrolling;
+      if (scrollbar.hidden) return;
+
+      thumbHeight = Math.max(48, (viewportHeight * viewportHeight) / element.scrollHeight);
+      const maxThumbTop = viewportHeight - thumbHeight;
+      const thumbTop = maxScroll > 0 ? (scrollTop / maxScroll) * maxThumbTop : 0;
+
+      scrollbarThumb.style.height = `${thumbHeight}px`;
+      scrollbarThumb.style.transform = `translateY(${thumbTop}px)`;
+    };
+
+    scrollbarThumb.addEventListener("pointerdown", (event) => {
+      dragStartY = event.clientY;
+      dragStartScroll = getScrollState().scrollTop;
+      scrollbarThumb.setPointerCapture(event.pointerId);
+      scrollbarThumb.classList.add("page-scrollbar__thumb--dragging");
+    });
+
+    scrollbarThumb.addEventListener("pointermove", (event) => {
+      if (!scrollbarThumb.hasPointerCapture(event.pointerId)) return;
+
+      const { element, viewportHeight, maxScroll } = getScrollState();
+      const maxThumbTop = viewportHeight - thumbHeight;
+      if (maxThumbTop <= 0) return;
+
+      const scrollDelta = ((event.clientY - dragStartY) / maxThumbTop) * maxScroll;
+      element.scrollTo({ top: dragStartScroll + scrollDelta });
+    });
+
+    const stopDragging = (event: PointerEvent) => {
+      if (scrollbarThumb.hasPointerCapture(event.pointerId)) {
+        scrollbarThumb.releasePointerCapture(event.pointerId);
+      }
+      scrollbarThumb.classList.remove("page-scrollbar__thumb--dragging");
+    };
+
+    scrollbarThumb.addEventListener("pointerup", stopDragging);
+    scrollbarThumb.addEventListener("pointercancel", stopDragging);
+    window.addEventListener("scroll", updateScrollbar, { passive: true });
+    document.body.addEventListener("scroll", updateScrollbar, { passive: true });
+    window.addEventListener("resize", updateScrollbar);
+    new ResizeObserver(updateScrollbar).observe(document.body);
+    updateScrollbar();
+  }
 </script>
 
 <style>
-  .site-header-backdrop {
+  :global(html),
+  :global(body) {
+    scrollbar-width: none;
+  }
+
+  :global(html::-webkit-scrollbar),
+  :global(body::-webkit-scrollbar) {
+    display: none;
+  }
+
+  .page-scrollbar {
     position: fixed;
-    z-index: 999;
+    z-index: 2147483647;
     top: 0;
     right: 0;
-    left: 0;
-    height: 8.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(32, 34, 31, 0.22);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    bottom: 0;
+    width: 0.75rem;
     pointer-events: none;
+  }
+
+  .page-scrollbar__thumb {
+    position: absolute;
+    top: 0;
+    right: 0.2rem;
+    width: 0.4rem;
+    min-height: 3rem;
+    border-radius: 999px;
+    background: rgba(32, 34, 31, 0.62);
+    cursor: grab;
+    pointer-events: auto;
+    touch-action: none;
+  }
+
+  .page-scrollbar__thumb:hover,
+  .page-scrollbar__thumb--dragging {
+    background: rgba(32, 34, 31, 0.82);
+  }
+
+  .page-scrollbar__thumb--dragging {
+    cursor: grabbing;
   }
 
   .site-header {
     --nav-gap: clamp(2rem, 5vw, 5rem);
     position: fixed;
     z-index: 1000;
-    top: 1.75rem;
-    right: clamp(1.5rem, 3vw, 3.5rem);
+    top: 0;
+    right: 0;
+    left: 0;
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
-    width: min(65rem, calc(100% - 19rem));
-    height: 5.125rem;
+    width: 100vw;
+    height: 8.5rem;
     box-sizing: border-box;
-    padding: 0 1rem;
-    border-radius: 1.5rem;
+    padding: 0 clamp(1.5rem, 3vw, 3.5rem) 0 19rem;
     column-gap: var(--nav-gap);
-    background: transparent;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(32, 34, 31, 0.22);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     font-family: Inter, Arial, Helvetica, sans-serif;
     letter-spacing: 0;
   }
