@@ -58,7 +58,15 @@
 
     body .hero:not(#responsive-override) .site-header,
     body .program-page:not(#responsive-override) .site-header {
-      width: calc(100% - 3rem);
+      --nav-gap: clamp(1.25rem, 4vw, 2.75rem);
+      right: 1.5rem;
+      width: calc(100% - 15rem);
+    }
+
+    body .hero:not(#responsive-override) .site-logo,
+    body .program-page:not(#responsive-override) .site-logo {
+      left: 1.5rem;
+      width: 10rem;
     }
 
     body .hero:not(#responsive-override) .hero__content {
@@ -118,6 +126,11 @@
   }
 
   @media (max-width: 47.99rem) {
+    body .hero:not(#responsive-override) .site-header-backdrop,
+    body .program-page:not(#responsive-override) .site-header-backdrop {
+      height: 6.75rem;
+    }
+
     body .impact-page:not(#responsive-override) .section-shell,
     body .site-footer:not(#responsive-override) .section-shell,
     body .program-page:not(#responsive-override) .program-shell,
@@ -145,15 +158,21 @@
     body .hero:not(#responsive-override) .site-header,
     body .program-page:not(#responsive-override) .site-header {
       top: 1rem;
-      grid-template-columns: minmax(0, 1fr) auto;
-      width: calc(100% - 2rem);
+      right: 1rem;
+      left: auto;
+      grid-template-columns: minmax(0, 1fr);
+      width: 4.75rem;
       height: 4.75rem;
-      padding: 0.75rem 1rem;
-      background: rgba(32, 34, 31, 0.34);
+      padding: 0.75rem;
+      column-gap: 0;
+      transform: none;
+      background: transparent;
     }
 
     body .hero:not(#responsive-override) .site-logo,
     body .program-page:not(#responsive-override) .site-logo {
+      top: 1.75rem;
+      left: 1rem;
       width: clamp(6.75rem, 31vw, 9rem);
     }
 
@@ -538,10 +557,19 @@
       width: calc(100% - 1.5rem);
     }
 
-    body .hero:not(#responsive-override) .site-header,
-    body .program-page:not(#responsive-override) .site-header,
     body .hero:not(#responsive-override) .hero__content {
       width: calc(100% - 1.5rem);
+    }
+
+    body .hero:not(#responsive-override) .site-header,
+    body .program-page:not(#responsive-override) .site-header {
+      right: 0.75rem;
+      width: 4.75rem;
+    }
+
+    body .hero:not(#responsive-override) .site-logo,
+    body .program-page:not(#responsive-override) .site-logo {
+      left: 0.75rem;
     }
 
     body .hero:not(#responsive-override) .hero__actions {
